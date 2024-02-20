@@ -1,6 +1,8 @@
 package com.amano.foodtruckchallenge.entity.po;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
@@ -22,6 +24,7 @@ import lombok.Setter;
 @Setter
 public class MobileFoodInfoPO extends Model<MobileFoodInfoPO> {
     //主键ID
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     //位置ID

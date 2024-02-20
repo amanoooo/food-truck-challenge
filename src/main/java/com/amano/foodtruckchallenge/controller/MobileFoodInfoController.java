@@ -66,7 +66,7 @@ public class MobileFoodInfoController {
      */
     @GetMapping("selectOne")
     @JsonView(BaseView.class)
-    public BaseResult<MobileFoodInfoVO> selectOne(Serializable id) {
+    public BaseResult<MobileFoodInfoVO> selectOne(Long id) {
         return BaseResult.ok(mobileFoodInfoTransfer.poToVo(this.mobileFoodInfoService.getById(id)));
     }
 
