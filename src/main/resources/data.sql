@@ -16,5 +16,5 @@ SELECT locationid,
        permit,
        Status,
        FoodItems
-FROM CSVREAD('./Mobile_Food_facility_Permit.csv')
+FROM CSVREAD('./Mobile_Food_Facility_Permit.csv')
 ;
