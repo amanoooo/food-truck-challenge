@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amano.foodtruckchallenge.mapper.MobileFoodInfoMapper">
+
+    <resultMap type="com.amano.foodtruckchallenge.entity.po.MobileFoodInfoPO" id="MobileFoodInfoMap">
+        <result property="id" column="ID" jdbcType="INTEGER"/>
+        <result property="locationid" column="LOCATIONID" jdbcType="INTEGER"/>
+        <result property="applicant" column="APPLICANT" jdbcType="VARCHAR"/>
+        <result property="facilityType" column="FACILITY_TYPE" jdbcType="VARCHAR"/>
+        <result property="cnn" column="CNN" jdbcType="VARCHAR"/>
+        <result property="locationDescription" column="LOCATION_DESCRIPTION" jdbcType="VARCHAR"/>
+        <result property="address" column="ADDRESS" jdbcType="VARCHAR"/>
+        <result property="permit" column="PERMIT" jdbcType="VARCHAR"/>
+        <result property="status" column="STATUS" jdbcType="VARCHAR"/>
+        <result property="foodItems" column="FOOD_ITEMS" jdbcType="VARCHAR"/>
+        <result property="createdAt" column="CREATED_AT" jdbcType="TIMESTAMP"/>
+        <result property="updatedAt" column="UPDATED_AT" jdbcType="TIMESTAMP"/>
+        <result property="deleted" column="DELETED" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into PUBLIC.MOBILE_FOOD_INFO(LOCATIONIDAPPLICANTFACILITY_TYPECNNLOCATION_DESCRIPTIONADDRESSPERMITSTATUSFOOD_ITEMSCREATED_ATUPDATED_ATDELETED)
+        values
+        <foreach collection="collection" item="entity" separator=",">
+        (#{entity.locationid}#{entity.applicant}#{entity.facilityType}#{entity.cnn}#{entity.locationDescription}#{entity.address}#{entity.permit}#{entity.status}#{entity.foodItems}#{entity.createdAt}#{entity.updatedAt}#{entity.deleted})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into PUBLIC.MOBILE_FOOD_INFO(LOCATIONIDAPPLICANTFACILITY_TYPECNNLOCATION_DESCRIPTIONADDRESSPERMITSTATUSFOOD_ITEMSCREATED_ATUPDATED_ATDELETED)
+        values
+        <foreach collection="collection" item="entity" separator=",">
+            (#{entity.locationid}#{entity.applicant}#{entity.facilityType}#{entity.cnn}#{entity.locationDescription}#{entity.address}#{entity.permit}#{entity.status}#{entity.foodItems}#{entity.createdAt}#{entity.updatedAt}#{entity.deleted})
+        </foreach>
+        on duplicate key update
+LOCATIONID = values(LOCATIONID) APPLICANT = values(APPLICANT) FACILITY_TYPE = values(FACILITY_TYPE) CNN = values(CNN) LOCATION_DESCRIPTION = values(LOCATION_DESCRIPTION) ADDRESS = values(ADDRESS) PERMIT = values(PERMIT) STATUS = values(STATUS) FOOD_ITEMS = values(FOOD_ITEMS) CREATED_AT = values(CREATED_AT) UPDATED_AT = values(UPDATED_AT) DELETED = values(DELETED)     </insert>
+    
+        <!--通过主键修改数据-->
+    <update id="updateWithoutBlank">
+        update MOBILE_FOOD_INFO
+        <set>
+            <if test="locationid != null">
+                LOCATIONID = #{locationid},
+            </if>
+            <if test="applicant != null and applicant != ''">
+                APPLICANT = #{applicant},
+            </if>
+            <if test="facilityType != null and facilityType != ''">
+                FACILITY_TYPE = #{facilityType},
+            </if>
+            <if test="cnn != null and cnn != ''">
+                CNN = #{cnn},
+            </if>
+            <if test="locationDescription != null and locationDescription != ''">
+                LOCATION_DESCRIPTION = #{locationDescription},
+            </if>
+            <if test="address != null and address != ''">
+                ADDRESS = #{address},
+            </if>
+            <if test="permit != null and permit != ''">
+                PERMIT = #{permit},
+            </if>
+            <if test="status != null and status != ''">
+                STATUS = #{status},
+            </if>
+            <if test="foodItems != null and foodItems != ''">
+                FOOD_ITEMS = #{foodItems},
+            </if>
+            <if test="createdAt != null">
+                CREATED_AT = #{createdAt},
+            </if>
+            <if test="updatedAt != null">
+                UPDATED_AT = #{updatedAt},
+            </if>
+            <if test="deleted != null and deleted != ''">
+                DELETED = #{deleted},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+</mapper>
+
